@@ -12,7 +12,7 @@ export default function CheckboxFieldEditor({
   onRemove,
 }: CheckboxFieldEditorProps) {
   const [label, setLabel] = useState('')
-  const [options, setOptions] = useState(['Option 1'])
+  const [options, setOptions] = useState(['', ''])
 
   const handleOptionChange = (index: number, value: string) => {
     const newOptions = [...options]
@@ -49,7 +49,7 @@ export default function CheckboxFieldEditor({
           Options
         </label>
         <div className="space-y-2">
-          {options.map((_, index) => (
+          {options.map((option, index) => (
             <div key={index} className="flex items-center gap-2">
               <input
                 type="checkbox"
@@ -57,6 +57,7 @@ export default function CheckboxFieldEditor({
               />
               <input
                 type="text"
+                value={option}
                 onChange={(e) => handleOptionChange(index, e.target.value)}
                 placeholder={`Option ${index + 1}`}
                 className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-brand-default focus:border-brand-default"
