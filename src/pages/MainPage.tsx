@@ -22,16 +22,8 @@ export default function MainPage() {
 
   return (
     <div className="min-h-screen bg-surface-2">
-      <Header />
+      <Header showPreview={showPreview} setShowPreview={setShowPreview} />
       <div className="max-w-6xl mx-auto p-8">
-        <div className="flex justify-end mb-4">
-          <button
-            onClick={() => setShowPreview(!showPreview)}
-            className="px-4 py-2 bg-brand-default text-white rounded-lg hover:bg-brand-dark transition-colors"
-          >
-            {showPreview ? 'Back to Editor' : 'Preview Form'}
-          </button>
-        </div>
         {showPreview ? (
           <PreviewForm formElements={formElements} />
         ) : (
