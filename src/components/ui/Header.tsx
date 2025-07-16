@@ -29,15 +29,17 @@ export default function Header({ showPreview, setShowPreview }: HeaderProps) {
           </button>
           <button
             onClick={() => setShowPreview(!showPreview)}
-            className="bg-brand-default hover:bg-brand-light text-black font-normal h-10 px-6 rounded-3xl transition-colors duration-200 tracking-tight flex items-center gap-2"
+            className="bg-brand-default hover:bg-brand-dark text-black font-normal h-10 px-6 rounded-3xl transition-colors duration-200 tracking-tight flex items-center gap-2"
           >
             {showPreview ? (
               <>
-                <FiEdit size={20} /> <span className="hidden lg:inline">Edit Form</span>
+                <FiEdit size={20} />{' '}
+                <span className="hidden lg:inline">Edit Form</span>
               </>
             ) : (
               <>
-                <FiEye size={20} /> <span className="hidden lg:inline">Preview Form</span>
+                <FiEye size={20} />{' '}
+                <span className="hidden lg:inline">Preview Form</span>
               </>
             )}
           </button>
