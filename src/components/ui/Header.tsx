@@ -1,4 +1,4 @@
-import logo from '../assets/logo.svg'
+import logo from '../../assets/logo.svg'
 import { FiSave } from 'react-icons/fi'
 
 export default function Header() {
