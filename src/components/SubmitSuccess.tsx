@@ -13,7 +13,7 @@ export default function SubmitSuccess({
   submittedFormData,
 }: SubmitSuccessProps) {
   return (
-    <div className="bg-surface-1 p-12 rounded-lg shadow-lg text-center max-w-md w-full border border-gray-200 mx-auto">
+    <div className="bg-surface-1 p-12 rounded-lg text-center max-w-md w-full border border-gray-200 mx-auto">
       <FiCheckCircle className="text-green-500 text-5xl mx-auto mb-4" />
       <h2 className="text-2xl font-bold text-text-primary mb-6">
         Form submitted successfully!
