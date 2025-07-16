@@ -27,7 +27,7 @@ export default function FieldEditor({
               id={`required-${id}`}
               checked={isRequired}
               onChange={(e) => setIsRequired(e.target.checked)}
-              className="w-4 h-4 text-brand-default border-gray-300 rounded focus:ring-brand-default cursor-pointer"
+              className="w-4 h-4 text-text-primary border-text-primary rounded"
             />
             <label
               htmlFor={`required-${id}`}
@@ -40,7 +40,7 @@ export default function FieldEditor({
             onClick={() => onRemove(id)}
             className="text-red-500 hover:text-red-700"
           >
-            <FiTrash />
+            <FiTrash className="text-base" />
           </button>
         </div>
       </div>
