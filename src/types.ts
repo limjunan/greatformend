@@ -12,3 +12,7 @@ export type FormConfig = {
   formTitle: string
   formDescription: string
 }
+
+export type SubmittedFormData = Record<string, string | string[]>
+
+export type FormElementControl = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | HTMLCollectionOf<HTMLInputElement> | RadioNodeList;

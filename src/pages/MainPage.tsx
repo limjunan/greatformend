@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 import Header from '../components/ui/Header'
 import PreviewForm from '../components/preview/PreviewForm'
-import { type FormElement, type FormConfig } from '../types'
+import { type FormElement, type FormConfig, type SubmittedFormData } from '../types'
 import EditForm from '../components/builder/EditForm'
 
 export default function MainPage() {
@@ -12,6 +12,7 @@ export default function MainPage() {
   })
   const [showPreview, setShowPreview] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
+  const [submittedFormData, setSubmittedFormData] = useState<SubmittedFormData>({})
 
   const addElement = (type: 'text' | 'paragraph' | 'checkbox' | 'select') => {
     setFormConfig((prevConfig) => ({
@@ -57,17 +58,20 @@ export default function MainPage() {
     }))
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (formData: SubmittedFormData) => {
+    setSubmittedFormData(formData)
     setShowSuccess(true)
   }
 
   const handleBackToEditor = () => {
     setShowSuccess(false)
     setShowPreview(false)
+    setSubmittedFormData({}) // Clear submitted data when going back to editor
   }
 
   const handleBackToForm = () => {
     setShowSuccess(false)
+    setSubmittedFormData({}) // Clear submitted data when going back to form
     // Optionally reset form fields here if needed
   }
 
@@ -79,6 +83,7 @@ export default function MainPage() {
           <SubmitSuccess
             onBackToEditor={handleBackToEditor}
             onBackToForm={handleBackToForm}
+            submittedFormData={submittedFormData}
           />
         ) : showPreview ? (
           <PreviewForm formConfig={formConfig} onSubmit={handleSubmit} />

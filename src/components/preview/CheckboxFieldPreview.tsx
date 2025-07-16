@@ -2,12 +2,14 @@ interface CheckboxFieldProps {
   label: string
   options: string[]
   isRequired: boolean
+  id: string
 }
 
 export default function CheckboxFieldPreview({
   label,
   options,
   isRequired,
+  id,
 }: CheckboxFieldProps) {
   return (
     <div>
@@ -19,6 +21,8 @@ export default function CheckboxFieldPreview({
           <div key={index} className="flex items-center gap-2">
             <input
               type="checkbox"
+              name={id}
+              value={option}
               className="w-4 h-4 text-text-primary border-text-secondary rounded focus:outline-none focus:ring-1 focus:ring-brand-default focus:border-brand-default"
             />
             <span className="text-sm text-text-primary">{option}</span>

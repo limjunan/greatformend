@@ -2,12 +2,14 @@ interface TextFieldProps {
   label: string
   placeholder: string
   isRequired: boolean
+  id: string
 }
 
 export default function TextFieldPreview({
   label,
   placeholder,
   isRequired,
+  id,
 }: TextFieldProps) {
   return (
     <div>
@@ -16,6 +18,7 @@ export default function TextFieldPreview({
       </label>
       <input
         type="text"
+        name={id}
         placeholder={placeholder}
         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-default focus:border-brand-default"
       />
