@@ -11,6 +11,7 @@ export default function MainPage() {
     formDescription: '',
   })
   const [showPreview, setShowPreview] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false)
 
   const addElement = (type: 'text' | 'paragraph' | 'checkbox' | 'select') => {
     setFormConfig((prevConfig) => ({
@@ -56,12 +57,31 @@ export default function MainPage() {
     }))
   }
 
+  const handleSubmit = () => {
+    setShowSuccess(true)
+  }
+
+  const handleBackToEditor = () => {
+    setShowSuccess(false)
+    setShowPreview(false)
+  }
+
+  const handleBackToForm = () => {
+    setShowSuccess(false)
+    // Optionally reset form fields here if needed
+  }
+
   return (
     <div className="min-h-screen bg-surface-2">
       <Header showPreview={showPreview} setShowPreview={setShowPreview} />
       <div className="max-w-6xl mx-auto p-8">
-        {showPreview ? (
-          <PreviewForm formConfig={formConfig} />
+        {showSuccess ? (
+          <SubmitSuccess
+            onBackToEditor={handleBackToEditor}
+            onBackToForm={handleBackToForm}
+          />
+        ) : showPreview ? (
+          <PreviewForm formConfig={formConfig} onSubmit={handleSubmit} />
         ) : (
           <EditForm
             formConfig={formConfig}
@@ -76,3 +96,5 @@ export default function MainPage() {
     </div>
   )
 }
+
+import SubmitSuccess from '../components/SubmitSuccess'

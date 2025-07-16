@@ -7,9 +7,10 @@ import { FiSend } from 'react-icons/fi'
 
 interface PreviewFormProps {
   formConfig: FormConfig
+  onSubmit: () => void
 }
 
-export default function PreviewForm({ formConfig }: PreviewFormProps) {
+export default function PreviewForm({ formConfig, onSubmit }: PreviewFormProps) {
   const { formElements, formTitle, formDescription } = formConfig
 
   return (
@@ -72,7 +73,7 @@ export default function PreviewForm({ formConfig }: PreviewFormProps) {
             })}
           </div>
           <button
-            onClick={() => console.log('Form submitted!')}
+            onClick={onSubmit}
             className="mt-6 w-full px-6 py-2 bg-brand-default text-black rounded-lg hover:bg-brand-dark transition-colors flex items-center justify-center gap-2"
           >
             <FiSend /> Submit
