@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { type FormElement } from '../../types'
 import TextFieldEditor from '../editors/TextFieldEditor'
 import ParagraphFieldEditor from '../editors/ParagraphFieldEditor'
@@ -48,15 +48,18 @@ export default function FormBuilder({
     onUpdateElements(newElements)
   }
 
-  const handleUpdateElement = (id: string, updates: Partial<FormElement>) => {
-    setElements((prevElements) => {
-      const updatedElements = prevElements.map((el) =>
-        el.id === id ? { ...el, ...updates } : el
-      )
-      onUpdateElements(updatedElements)
-      return updatedElements
-    })
-  }
+  const handleUpdateElement = useCallback(
+    (id: string, updates: Partial<FormElement>) => {
+      setElements((prevElements) => {
+        const updatedElements = prevElements.map((el) =>
+          el.id === id ? { ...el, ...updates } : el
+        )
+        onUpdateElements(updatedElements)
+        return updatedElements
+      })
+    },
+    [onUpdateElements]
+  )
 
   return (
     <div className="mb-8 bg-surface-1 p-6 rounded-lg border border-gray-200">
