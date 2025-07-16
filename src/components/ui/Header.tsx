@@ -33,11 +33,11 @@ export default function Header({ showPreview, setShowPreview }: HeaderProps) {
           >
             {showPreview ? (
               <>
-                <FiEdit size={20} /> Edit Form
+                <FiEdit size={20} /> <span className="hidden lg:inline">Edit Form</span>
               </>
             ) : (
               <>
-                <FiEye size={20} /> Preview Form
+                <FiEye size={20} /> <span className="hidden lg:inline">Preview Form</span>
               </>
             )}
           </button>
