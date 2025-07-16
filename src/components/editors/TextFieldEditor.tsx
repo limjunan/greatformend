@@ -4,14 +4,25 @@ import FieldEditor from './FieldEditor'
 interface TextFieldEditorProps {
   id: string
   onRemove: (id: string) => void
+  onMoveUp: () => void
+  onMoveDown: () => void
+  index: number
+  totalElements: number
 }
 
-export default function TextFieldEditor({ id, onRemove }: TextFieldEditorProps) {
+export default function TextFieldEditor({
+  id,
+  onRemove,
+  onMoveUp,
+  onMoveDown,
+  index,
+  totalElements,
+}: TextFieldEditorProps) {
   const [label, setLabel] = useState('')
   const [placeholder, setPlaceholder] = useState('')
 
   return (
-    <FieldEditor id={id} title="Text Field" onRemove={onRemove}>
+    <FieldEditor id={id} title="Text Field" onRemove={onRemove} onMoveUp={onMoveUp} onMoveDown={onMoveDown} index={index} totalElements={totalElements}>
       <div>
         <label className="block text-xs font-medium text-text-secondary mb-1">
           Label

@@ -4,17 +4,25 @@ import FieldEditor from './FieldEditor'
 interface ParagraphFieldEditorProps {
   id: string
   onRemove: (id: string) => void
+  onMoveUp: () => void
+  onMoveDown: () => void
+  index: number
+  totalElements: number
 }
 
 export default function ParagraphFieldEditor({
   id,
   onRemove,
+  onMoveUp,
+  onMoveDown,
+  index,
+  totalElements,
 }: ParagraphFieldEditorProps) {
   const [label, setLabel] = useState('')
   const [placeholder, setPlaceholder] = useState('')
 
   return (
-    <FieldEditor id={id} title="Paragraph Field" onRemove={onRemove}>
+    <FieldEditor id={id} title="Paragraph Field" onRemove={onRemove} onMoveUp={onMoveUp} onMoveDown={onMoveDown} index={index} totalElements={totalElements}>
       <div>
         <label className="block text-xs font-medium text-text-secondary mb-1">
           Label

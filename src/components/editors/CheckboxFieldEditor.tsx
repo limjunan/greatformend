@@ -5,11 +5,19 @@ import { FiPlus, FiTrash } from 'react-icons/fi'
 interface CheckboxFieldEditorProps {
   id: string
   onRemove: (id: string) => void
+  onMoveUp: () => void
+  onMoveDown: () => void
+  index: number
+  totalElements: number
 }
 
 export default function CheckboxFieldEditor({
   id,
   onRemove,
+  onMoveUp,
+  onMoveDown,
+  index,
+  totalElements,
 }: CheckboxFieldEditorProps) {
   const [label, setLabel] = useState('')
   const [options, setOptions] = useState(['', ''])
@@ -31,7 +39,7 @@ export default function CheckboxFieldEditor({
   }
 
   return (
-    <FieldEditor id={id} title="Checkbox Field" onRemove={onRemove}>
+    <FieldEditor id={id} title="Checkbox Field" onRemove={onRemove} onMoveUp={onMoveUp} onMoveDown={onMoveDown} index={index} totalElements={totalElements}>
       <div>
         <label className="block text-xs font-medium text-text-secondary mb-1">
           Label

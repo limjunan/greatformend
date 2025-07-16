@@ -31,6 +31,7 @@ export default function MainPage() {
             <FormBuilder
               formElements={formElements}
               onRemoveElement={removeElement}
+              onUpdateElements={setFormElements}
             />
           </div>
         </div>

@@ -5,11 +5,19 @@ import { FiPlus, FiTrash } from 'react-icons/fi'
 interface SelectFieldEditorProps {
   id: string
   onRemove: (id: string) => void
+  onMoveUp: () => void
+  onMoveDown: () => void
+  index: number
+  totalElements: number
 }
 
 export default function SelectFieldEditor({
   id,
   onRemove,
+  onMoveUp,
+  onMoveDown,
+  index,
+  totalElements,
 }: SelectFieldEditorProps) {
   const [label, setLabel] = useState('')
   const [options, setOptions] = useState<string[]>(['', ''])
@@ -31,7 +39,7 @@ export default function SelectFieldEditor({
   }
 
   return (
-    <FieldEditor id={id} title="Select Field" onRemove={onRemove}>
+    <FieldEditor id={id} title="Select Field" onRemove={onRemove} onMoveUp={onMoveUp} onMoveDown={onMoveDown} index={index} totalElements={totalElements}>
       <div>
         <label className="block text-xs font-medium text-text-secondary mb-1">
           Label

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { type FormElement } from '../../types'
 import TextFieldEditor from '../editors/TextFieldEditor'
 import ParagraphFieldEditor from '../editors/ParagraphFieldEditor'
@@ -8,14 +8,39 @@ import SelectFieldEditor from '../editors/SelectFieldEditor'
 interface FormBuilderProps {
   formElements: FormElement[]
   onRemoveElement: (id: string) => void
+  onUpdateElements: (elements: FormElement[]) => void
 }
 
 export default function FormBuilder({
   formElements,
   onRemoveElement,
+  onUpdateElements,
 }: FormBuilderProps) {
   const [formTitle, setFormTitle] = useState('')
   const [formDescription, setFormDescription] = useState('')
+  const [elements, setElements] = useState<FormElement[]>(formElements)
+
+  useEffect(() => {
+    setElements(formElements)
+  }, [formElements])
+
+  const handleMoveElement = (id: string, direction: 'up' | 'down') => {
+    const index = elements.findIndex((el) => el.id === id)
+    if (index === -1) return
+
+    const newElements = [...elements]
+    const [movedElement] = newElements.splice(index, 1)
+
+    if (direction === 'up' && index > 0) {
+      newElements.splice(index - 1, 0, movedElement)
+    } else if (direction === 'down' && index < newElements.length) {
+      newElements.splice(index + 1, 0, movedElement)
+    } else {
+      return
+    }
+    setElements(newElements)
+    onUpdateElements(newElements)
+  }
 
   return (
     <div className="mb-8 bg-surface-1 p-6 rounded-lg border border-gray-200">
@@ -49,7 +74,7 @@ export default function FormBuilder({
       </div>
 
       <div>
-        {formElements.length === 0 ? (
+        {elements.length === 0 ? (
           <div className="min-h-32 border-2 border-dashed border-gray-300 rounded-lg p-6 flex items-center justify-center">
             <p className="text-text-secondary text-center">
               No form fields added yet. <br />
@@ -58,7 +83,7 @@ export default function FormBuilder({
           </div>
         ) : (
           <div>
-            {formElements.map((element) => {
+            {elements.map((element, index) => {
               switch (element.type) {
                 case 'text':
                   return (
@@ -66,6 +91,10 @@ export default function FormBuilder({
                       key={element.id}
                       id={element.id}
                       onRemove={onRemoveElement}
+                      onMoveUp={() => handleMoveElement(element.id, 'up')}
+                      onMoveDown={() => handleMoveElement(element.id, 'down')}
+                      index={index}
+                      totalElements={elements.length}
                     />
                   )
                 case 'paragraph':
@@ -74,6 +103,10 @@ export default function FormBuilder({
                       key={element.id}
                       id={element.id}
                       onRemove={onRemoveElement}
+                      onMoveUp={() => handleMoveElement(element.id, 'up')}
+                      onMoveDown={() => handleMoveElement(element.id, 'down')}
+                      index={index}
+                      totalElements={elements.length}
                     />
                   )
                 case 'checkbox':
@@ -82,6 +115,10 @@ export default function FormBuilder({
                       key={element.id}
                       id={element.id}
                       onRemove={onRemoveElement}
+                      onMoveUp={() => handleMoveElement(element.id, 'up')}
+                      onMoveDown={() => handleMoveElement(element.id, 'down')}
+                      index={index}
+                      totalElements={elements.length}
                     />
                   )
                 case 'select':
@@ -90,6 +127,10 @@ export default function FormBuilder({
                       key={element.id}
                       id={element.id}
                       onRemove={onRemoveElement}
+                      onMoveUp={() => handleMoveElement(element.id, 'up')}
+                      onMoveDown={() => handleMoveElement(element.id, 'down')}
+                      index={index}
+                      totalElements={elements.length}
                     />
                   )
                 default:
