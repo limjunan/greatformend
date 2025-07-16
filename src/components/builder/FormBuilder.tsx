@@ -9,15 +9,21 @@ interface FormBuilderProps {
   formElements: FormElement[]
   onRemoveElement: (id: string) => void
   onUpdateElements: (elements: FormElement[]) => void
+  formTitle: string
+  setFormTitle: (title: string) => void
+  formDescription: string
+  setFormDescription: (description: string) => void
 }
 
 export default function FormBuilder({
   formElements,
   onRemoveElement,
   onUpdateElements,
+  formTitle,
+  setFormTitle,
+  formDescription,
+  setFormDescription,
 }: FormBuilderProps) {
-  const [formTitle, setFormTitle] = useState('')
-  const [formDescription, setFormDescription] = useState('')
   const [elements, setElements] = useState<FormElement[]>(formElements)
 
   useEffect(() => {
@@ -40,6 +46,16 @@ export default function FormBuilder({
     }
     setElements(newElements)
     onUpdateElements(newElements)
+  }
+
+  const handleUpdateElement = (id: string, updates: Partial<FormElement>) => {
+    setElements((prevElements) => {
+      const updatedElements = prevElements.map((el) =>
+        el.id === id ? { ...el, ...updates } : el
+      )
+      onUpdateElements(updatedElements)
+      return updatedElements
+    })
   }
 
   return (
@@ -95,6 +111,8 @@ export default function FormBuilder({
                       onMoveDown={() => handleMoveElement(element.id, 'down')}
                       index={index}
                       totalElements={elements.length}
+                      elementData={element}
+                      onUpdateElement={handleUpdateElement}
                     />
                   )
                 case 'paragraph':
@@ -107,6 +125,8 @@ export default function FormBuilder({
                       onMoveDown={() => handleMoveElement(element.id, 'down')}
                       index={index}
                       totalElements={elements.length}
+                      elementData={element}
+                      onUpdateElement={handleUpdateElement}
                     />
                   )
                 case 'checkbox':
@@ -119,6 +139,8 @@ export default function FormBuilder({
                       onMoveDown={() => handleMoveElement(element.id, 'down')}
                       index={index}
                       totalElements={elements.length}
+                      elementData={element}
+                      onUpdateElement={handleUpdateElement}
                     />
                   )
                 case 'select':
@@ -131,6 +153,8 @@ export default function FormBuilder({
                       onMoveDown={() => handleMoveElement(element.id, 'down')}
                       index={index}
                       totalElements={elements.length}
+                      elementData={element}
+                      onUpdateElement={handleUpdateElement}
                     />
                   )
                 default:
