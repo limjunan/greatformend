@@ -26,10 +26,11 @@ export default function CheckboxFieldEditor({
 }: CheckboxFieldEditorProps) {
   const [label, setLabel] = useState(elementData.label || '')
   const [options, setOptions] = useState(elementData.options || ['', ''])
+  const [isRequired, setIsRequired] = useState(elementData.isRequired || false)
 
   useEffect(() => {
-    onUpdateElement(id, { label, options })
-  }, [id, label, options, onUpdateElement])
+    onUpdateElement(id, { label, options, isRequired })
+  }, [id, label, options, isRequired, onUpdateElement])
 
   const handleOptionChange = (index: number, value: string) => {
     const newOptions = [...options]
@@ -56,6 +57,8 @@ export default function CheckboxFieldEditor({
       onMoveDown={onMoveDown}
       index={index}
       totalElements={totalElements}
+      isRequired={isRequired}
+      setIsRequired={setIsRequired}
     >
       <div>
         <label className="block text-xs font-medium text-text-secondary mb-1">

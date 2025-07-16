@@ -25,10 +25,11 @@ export default function ParagraphFieldEditor({
 }: ParagraphFieldEditorProps) {
   const [label, setLabel] = useState(elementData.label || '')
   const [placeholder, setPlaceholder] = useState(elementData.placeholder || '')
+  const [isRequired, setIsRequired] = useState(elementData.isRequired || false)
 
   useEffect(() => {
-    onUpdateElement(id, { label, placeholder })
-  }, [id, label, placeholder, onUpdateElement])
+    onUpdateElement(id, { label, placeholder, isRequired })
+  }, [id, label, placeholder, isRequired, onUpdateElement])
 
   return (
     <FieldEditor
@@ -39,6 +40,8 @@ export default function ParagraphFieldEditor({
       onMoveDown={onMoveDown}
       index={index}
       totalElements={totalElements}
+      isRequired={isRequired}
+      setIsRequired={setIsRequired}
     >
       <div>
         <label className="block text-xs font-medium text-text-secondary mb-1">
