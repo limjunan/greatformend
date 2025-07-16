@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import FieldEditor from './FieldEditor'
 import { FiPlus, FiTrash } from 'react-icons/fi'
+import { type FormElement } from '../../types'
 
 interface SelectFieldEditorProps {
   id: string
@@ -9,6 +10,8 @@ interface SelectFieldEditorProps {
   onMoveDown: () => void
   index: number
   totalElements: number
+  elementData: FormElement
+  onUpdateElement: (id: string, updates: Partial<FormElement>) => void
 }
 
 export default function SelectFieldEditor({
@@ -18,9 +21,15 @@ export default function SelectFieldEditor({
   onMoveDown,
   index,
   totalElements,
+  elementData,
+  onUpdateElement,
 }: SelectFieldEditorProps) {
-  const [label, setLabel] = useState('')
-  const [options, setOptions] = useState<string[]>(['', ''])
+  const [label, setLabel] = useState(elementData.label || '')
+  const [options, setOptions] = useState(elementData.options || ['', ''])
+
+  useEffect(() => {
+    onUpdateElement(id, { label, options })
+  }, [id, label, options, onUpdateElement])
 
   const handleOptionChange = (index: number, value: string) => {
     const newOptions = [...options]
@@ -39,7 +48,15 @@ export default function SelectFieldEditor({
   }
 
   return (
-    <FieldEditor id={id} title="Select Field" onRemove={onRemove} onMoveUp={onMoveUp} onMoveDown={onMoveDown} index={index} totalElements={totalElements}>
+    <FieldEditor
+      id={id}
+      title="Select Field"
+      onRemove={onRemove}
+      onMoveUp={onMoveUp}
+      onMoveDown={onMoveDown}
+      index={index}
+      totalElements={totalElements}
+    >
       <div>
         <label className="block text-xs font-medium text-text-secondary mb-1">
           Label

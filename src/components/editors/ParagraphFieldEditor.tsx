@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import FieldEditor from './FieldEditor'
+import { type FormElement } from '../../types'
 
 interface ParagraphFieldEditorProps {
   id: string
@@ -8,6 +9,8 @@ interface ParagraphFieldEditorProps {
   onMoveDown: () => void
   index: number
   totalElements: number
+  elementData: FormElement
+  onUpdateElement: (id: string, updates: Partial<FormElement>) => void
 }
 
 export default function ParagraphFieldEditor({
@@ -17,12 +20,26 @@ export default function ParagraphFieldEditor({
   onMoveDown,
   index,
   totalElements,
+  elementData,
+  onUpdateElement,
 }: ParagraphFieldEditorProps) {
-  const [label, setLabel] = useState('')
-  const [placeholder, setPlaceholder] = useState('')
+  const [label, setLabel] = useState(elementData.label || '')
+  const [placeholder, setPlaceholder] = useState(elementData.placeholder || '')
+
+  useEffect(() => {
+    onUpdateElement(id, { label, placeholder })
+  }, [id, label, placeholder, onUpdateElement])
 
   return (
-    <FieldEditor id={id} title="Paragraph Field" onRemove={onRemove} onMoveUp={onMoveUp} onMoveDown={onMoveDown} index={index} totalElements={totalElements}>
+    <FieldEditor
+      id={id}
+      title="Paragraph Field"
+      onRemove={onRemove}
+      onMoveUp={onMoveUp}
+      onMoveDown={onMoveDown}
+      index={index}
+      totalElements={totalElements}
+    >
       <div>
         <label className="block text-xs font-medium text-text-secondary mb-1">
           Label

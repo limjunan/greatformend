@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import FieldEditor from './FieldEditor'
 import { FiPlus, FiTrash } from 'react-icons/fi'
+import { type FormElement } from '../../types'
 
 interface CheckboxFieldEditorProps {
   id: string
@@ -9,6 +10,8 @@ interface CheckboxFieldEditorProps {
   onMoveDown: () => void
   index: number
   totalElements: number
+  elementData: FormElement
+  onUpdateElement: (id: string, updates: Partial<FormElement>) => void
 }
 
 export default function CheckboxFieldEditor({
@@ -18,9 +21,15 @@ export default function CheckboxFieldEditor({
   onMoveDown,
   index,
   totalElements,
+  elementData,
+  onUpdateElement,
 }: CheckboxFieldEditorProps) {
-  const [label, setLabel] = useState('')
-  const [options, setOptions] = useState(['', ''])
+  const [label, setLabel] = useState(elementData.label || '')
+  const [options, setOptions] = useState(elementData.options || ['', ''])
+
+  useEffect(() => {
+    onUpdateElement(id, { label, options })
+  }, [id, label, options, onUpdateElement])
 
   const handleOptionChange = (index: number, value: string) => {
     const newOptions = [...options]
@@ -39,7 +48,15 @@ export default function CheckboxFieldEditor({
   }
 
   return (
-    <FieldEditor id={id} title="Checkbox Field" onRemove={onRemove} onMoveUp={onMoveUp} onMoveDown={onMoveDown} index={index} totalElements={totalElements}>
+    <FieldEditor
+      id={id}
+      title="Checkbox Field"
+      onRemove={onRemove}
+      onMoveUp={onMoveUp}
+      onMoveDown={onMoveDown}
+      index={index}
+      totalElements={totalElements}
+    >
       <div>
         <label className="block text-xs font-medium text-text-secondary mb-1">
           Label

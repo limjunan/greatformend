@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import FieldEditor from './FieldEditor'
+import { type FormElement } from '../../types'
 
 interface TextFieldEditorProps {
   id: string
@@ -8,6 +9,8 @@ interface TextFieldEditorProps {
   onMoveDown: () => void
   index: number
   totalElements: number
+  elementData: FormElement
+  onUpdateElement: (id: string, updates: Partial<FormElement>) => void
 }
 
 export default function TextFieldEditor({
@@ -17,12 +20,26 @@ export default function TextFieldEditor({
   onMoveDown,
   index,
   totalElements,
+  elementData,
+  onUpdateElement,
 }: TextFieldEditorProps) {
-  const [label, setLabel] = useState('')
-  const [placeholder, setPlaceholder] = useState('')
+  const [label, setLabel] = useState(elementData.label || '')
+  const [placeholder, setPlaceholder] = useState(elementData.placeholder || '')
+
+  useEffect(() => {
+    onUpdateElement(id, { label, placeholder })
+  }, [id, label, placeholder, onUpdateElement])
 
   return (
-    <FieldEditor id={id} title="Text Field" onRemove={onRemove} onMoveUp={onMoveUp} onMoveDown={onMoveDown} index={index} totalElements={totalElements}>
+    <FieldEditor
+      id={id}
+      title="Text Field"
+      onRemove={onRemove}
+      onMoveUp={onMoveUp}
+      onMoveDown={onMoveDown}
+      index={index}
+      totalElements={totalElements}
+    >
       <div>
         <label className="block text-xs font-medium text-text-secondary mb-1">
           Label
