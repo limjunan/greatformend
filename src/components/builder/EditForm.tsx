@@ -1,27 +1,23 @@
-import { type FormElement } from '../../types'
+import { type FormElement, type FormConfig } from '../../types'
 import AddFormElements from './AddFormElements'
 import FormBuilder from './FormBuilder'
 
 interface EditFormProps {
-  formElements: FormElement[]
+  formConfig: FormConfig
   addElement: (type: 'text' | 'paragraph' | 'checkbox' | 'select') => void
   removeElement: (id: string) => void
-  setFormElements: (elements: FormElement[]) => void
-  formTitle: string
-  setFormTitle: (title: string) => void
-  formDescription: string
-  setFormDescription: (description: string) => void
+  updateFormElements: (elements: FormElement[]) => void
+  updateFormTitle: (title: string) => void
+  updateFormDescription: (description: string) => void
 }
 
 export default function EditForm({
-  formElements,
+  formConfig,
   addElement,
   removeElement,
-  setFormElements,
-  formTitle,
-  setFormTitle,
-  formDescription,
-  setFormDescription,
+  updateFormElements,
+  updateFormTitle,
+  updateFormDescription,
 }: EditFormProps) {
   return (
     <div className="flex flex-col lg:flex-row gap-8">
@@ -30,15 +26,17 @@ export default function EditForm({
       </div>
       <div className="lg:w-2/3 pb-32 lg:pb-0">
         <FormBuilder
-          formElements={formElements}
+          formElements={formConfig.formElements}
           onRemoveElement={removeElement}
-          onUpdateElements={setFormElements}
-          formTitle={formTitle}
-          setFormTitle={setFormTitle}
-          formDescription={formDescription}
-          setFormDescription={setFormDescription}
+          onUpdateElements={updateFormElements}
+          formTitle={formConfig.formTitle}
+          setFormTitle={updateFormTitle}
+          formDescription={formConfig.formDescription}
+          setFormDescription={updateFormDescription}
         />
       </div>
     </div>
   )
 }
+
+  
