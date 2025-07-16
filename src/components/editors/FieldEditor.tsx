@@ -28,7 +28,7 @@ export default function FieldEditor({
   return (
     <div className="p-4 rounded-lg bg-surface-1 mb-4 shadow-sm border border-gray-200">
       <div className="flex justify-between items-center mb-3">
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col gap-1">
           <button
             onClick={onMoveUp}
             disabled={index === 0}
@@ -46,7 +46,7 @@ export default function FieldEditor({
         </div>
         <h3 className="text-sm font-medium text-text-primary">{title}</h3>
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 lg:gap-2">
             <input
               type="checkbox"
               id={`required-${id}`}
