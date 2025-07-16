@@ -17,7 +17,7 @@ export default function ParagraphFieldPreview({
       <textarea
         placeholder={placeholder}
         rows={3}
-        className="w-full px-3 py-2 border border-gray-300 rounded-lg resize-none"
+        className="w-full px-3 py-2 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-1 focus:ring-brand-default focus:border-brand-default"
       />
     </div>
   )
