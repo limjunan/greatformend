@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import Header from '../components/ui/Header'
-import AddFormElements from '../components/builder/AddFormElements'
-import FormBuilder from '../components/builder/FormBuilder'
+import PreviewForm from '../components/preview/PreviewForm'
 import { type FormElement } from '../types'
+import EditForm from '../components/builder/EditForm'
 
 export default function MainPage() {
   const [formElements, setFormElements] = useState<FormElement[]>([])
+  const [showPreview, setShowPreview] = useState(false)
 
   const addElement = (type: 'text' | 'paragraph' | 'checkbox' | 'select') => {
     const newElement: FormElement = {
@@ -23,18 +24,24 @@ export default function MainPage() {
     <div className="min-h-screen bg-surface-2">
       <Header />
       <div className="max-w-6xl mx-auto p-8">
-        <div className="flex flex-col lg:flex-row gap-8">
-          <div className="lg:w-1/3 fixed bottom-0 left-0 right-0 bg-surface-1 lg:static bg-transparent z-50">
-            <AddFormElements onAddElement={addElement} />
-          </div>
-          <div className="lg:w-2/3 pb-24 lg:pb-0">
-            <FormBuilder
-              formElements={formElements}
-              onRemoveElement={removeElement}
-              onUpdateElements={setFormElements}
-            />
-          </div>
+        <div className="flex justify-end mb-4">
+          <button
+            onClick={() => setShowPreview(!showPreview)}
+            className="px-4 py-2 bg-brand-default text-white rounded-lg hover:bg-brand-dark transition-colors"
+          >
+            {showPreview ? 'Back to Editor' : 'Preview Form'}
+          </button>
         </div>
+        {showPreview ? (
+          <PreviewForm formElements={formElements} />
+        ) : (
+          <EditForm
+            formElements={formElements}
+            addElement={addElement}
+            removeElement={removeElement}
+            setFormElements={setFormElements}
+          />
+        )}
       </div>
     </div>
   )
