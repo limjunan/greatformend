@@ -77,7 +77,7 @@ export default function MainPage() {
 
   return (
     <div className="min-h-screen bg-surface-2">
-      <Header showPreview={showPreview} setShowPreview={setShowPreview} />
+      <Header showPreview={showPreview} setShowPreview={setShowPreview} disablePreviewToggle={showSuccess} />
       <div className="max-w-6xl mx-auto p-8">
         {showSuccess ? (
           <SubmitSuccess

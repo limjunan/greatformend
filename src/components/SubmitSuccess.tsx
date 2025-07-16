@@ -1,4 +1,3 @@
-import React from 'react'
 import { FiEdit, FiEye, FiCheckCircle } from 'react-icons/fi'
 import { type SubmittedFormData } from '../types'
 

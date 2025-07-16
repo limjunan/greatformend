@@ -4,9 +4,10 @@ import { FiSave, FiEye, FiEdit } from 'react-icons/fi'
 interface HeaderProps {
   showPreview: boolean
   setShowPreview: (show: boolean) => void
+  disablePreviewToggle: boolean
 }
 
-export default function Header({ showPreview, setShowPreview }: HeaderProps) {
+export default function Header({ showPreview, setShowPreview, disablePreviewToggle }: HeaderProps) {
   return (
     <header className="bg-surface-1 border-b border-gray-200 px-8 py-4">
       <div className="max-w-6xl mx-auto lg:px-8 flex items-center justify-between">
@@ -29,6 +30,7 @@ export default function Header({ showPreview, setShowPreview }: HeaderProps) {
           </button>
           <button
             onClick={() => setShowPreview(!showPreview)}
+            disabled={disablePreviewToggle}
             className="bg-brand-default hover:bg-brand-dark text-black font-normal h-10 px-6 rounded-3xl transition-colors duration-200 tracking-tight flex items-center gap-2"
           >
             {showPreview ? (
