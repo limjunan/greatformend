@@ -4,7 +4,7 @@ import { FiSave } from 'react-icons/fi'
 export default function Header() {
   return (
     <header className="bg-surface-1 border-b border-gray-200 px-8 py-4">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <div className="max-w-6xl mx-auto lg:px-8 flex items-center justify-between">
         <div className="flex items-center space-x-1">
           <div className="h-8 w-8 overflow-hidden flex items-center justify-center">
             <img
